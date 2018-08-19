@@ -18,6 +18,8 @@ namespace MyStoreApi
 {
     public class Startup
     {
+        private const string ConnectionString = "Server=172.17.0.1;Database=MyStore;User=root;Password=123;";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -27,19 +29,19 @@ namespace MyStoreApi
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {            
+        {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //MySql connection
             services.AddDbContextPool<MyStoreContext>(
-                options => options.UseMySql("Server=localhost;Database=;User=root;Password=123;",
+                options => options.UseMySql(ConnectionString,
                     mySqlOptionsAction =>
                     {
-                        mySqlOptionsAction.ServerVersion(new Version(5,7,17),ServerType.MySql);
+                        mySqlOptionsAction.ServerVersion(new Version(8, 0, 12), ServerType.MySql);
                     }
 
                 )
             );
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
