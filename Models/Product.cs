@@ -1,6 +1,6 @@
 namespace MyStoreApi.Models
 {
-    public class Products
+    public class Product
     {
         public long productID { get; set; }
         public string description { get; set; }

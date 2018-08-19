@@ -1,6 +1,6 @@
 namespace MyStoreApi.Models
 {
-    public class Customers
+    public class Customer
     {
         public long customerID { get; set; }
         public string name  { get; set; }
