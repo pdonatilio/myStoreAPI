@@ -10,7 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using MyStoreApi.Models;
 
 namespace MyStoreApi
 {
@@ -27,6 +29,17 @@ namespace MyStoreApi
         public void ConfigureServices(IServiceCollection services)
         {            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            //MySql connection
+            services.AddDbContextPool<MyStoreContext>(
+                options => options.UseMySql("Server=localhost;Database=;User=root;Password=123;",
+                    mySqlOptionsAction =>
+                    {
+                        mySqlOptionsAction.ServerVersion(new Version(5,7,17),ServerType.MySql);
+                    }
+
+                )
+            );
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
