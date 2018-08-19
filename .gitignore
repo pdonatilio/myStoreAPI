@@ -232,3 +232,10 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+#Vscode Files
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
