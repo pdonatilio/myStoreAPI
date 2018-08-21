@@ -25,7 +25,7 @@ namespace MyStoreApi.Controllers
         }
 
         // GET api/Customer{id}
-        [HttpGet("{id}", Name = "GetTodo")]
+        [HttpGet("{id}", Name = "GetCustomer")]
         public ActionResult<Customer> GetbyId(long id)
         {
             var item = _context.customers.Find(id);
@@ -43,7 +43,7 @@ namespace MyStoreApi.Controllers
             _context.customers.Add(item);
             _context.SaveChanges();
 
-            return CreatedAtRoute("GetTodo", new{id = item.customerID},item);
+            return CreatedAtRoute("GetCustomer", new{id = item.customerID},item);
         }
 
         // PUT api/Customer
@@ -66,7 +66,7 @@ namespace MyStoreApi.Controllers
 
         }
 
-        //DELETE api/todo
+        //DELETE api/Customer
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
