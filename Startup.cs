@@ -18,7 +18,7 @@ namespace MyStoreApi
 {
     public class Startup
     {
-        private const string ConnectionString = "Server=172.17.0.1;Database=MyStore;User=root;Password=123;";
+        private const string ConnectionString = "Server=localhost;Database=MyStore;User=root;Password=123;";
 
         public Startup(IConfiguration configuration)
         {
@@ -31,6 +31,7 @@ namespace MyStoreApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
             //MySql connection
             services.AddDbContextPool<MyStoreContext>(
                 options => options.UseMySql(ConnectionString,

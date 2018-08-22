@@ -34,8 +34,6 @@ namespace MyStoreApi.Controllers
                 cache.SetString("customers", cacheCustomers, cacheOptions);
                 
             }
-            //return _context.customers.ToList();
-            //return JsonConvert.DeserializeObject(cacheCustomers);
             return Content(cacheCustomers, "application/json");
 
         }
