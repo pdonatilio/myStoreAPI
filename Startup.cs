@@ -42,6 +42,15 @@ namespace MyStoreApi
                 )
             );
 
+            //Redis connection
+            services.AddDistributedRedisCache(
+                options =>
+                {
+                    options.Configuration = "localhost";
+                    options.InstanceName = "redis_test";
+                }
+            );
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
