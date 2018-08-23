@@ -1,7 +1,10 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using System.Collections.Generic;
 using System.Linq;
 using MyStoreApi.Models;
+using Newtonsoft.Json;
 
 namespace MyStoreApi.Controllers
 {
@@ -19,9 +22,18 @@ namespace MyStoreApi.Controllers
 
         // GET api/Product
         [HttpGet]
-        public ActionResult<List<Product>> GetAll()
+        public ActionResult<List<Product>> GetAll([FromServices]IDistributedCache cache)
         {
-            return _context.products.ToList();
+            string cacheProducts = cache.GetString("products");
+            if (cacheProducts == null)
+            {
+                DistributedCacheEntryOptions cacheOptions = new DistributedCacheEntryOptions();
+                cacheOptions.SetAbsoluteExpiration(TimeSpan.FromMinutes(2));
+
+                cacheProducts = JsonConvert.SerializeObject(_context.products);
+                cache.SetString("products", cacheProducts, cacheOptions);                
+            }
+            return Content(cacheProducts, "application/json");            
         }
         
         // GET api/Product{id}
